@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:pack/resource/db.properties</value>
+		</property>
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${driver}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username}"></property>
+		<property name="password" value="${password}"></property>
+	</bean>
+	<bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="configLocation" value="classpath:pack/resource/Configuration.xml"></property> -->
+	</bean>
+	
+	<!-- 다중 인터페이스 시작 -->
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.client.MemberSQLInter" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.admin.AdminSQLInter" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.client.BoardSQLInter" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.client.ReplySQLInter" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.admin.NoticeSQLInter" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.admin.MemberManageSQLInter" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.admin.BoardSQLInterForAdmin" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="pack.model.admin.ReplySQLInterForAdmin" />
+		<property name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean" />
+	</bean>
+</beans>
